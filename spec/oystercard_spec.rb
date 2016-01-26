@@ -40,12 +40,6 @@ describe Oystercard do
       expect{oystercard.touch_in(entry_station)}.to raise_error("Balance under #{Oystercard::DEFAULT_MIN}")
     end
 
-    it "Records the station of departure at touch_in" do
-      oystercard.instance_variable_set("@balance", 1)
-      oystercard.touch_in(entry_station)
-      expect(oystercard.entry_station).to eq entry_station
-    end
-
   end
 
   describe "#touch_out" do
