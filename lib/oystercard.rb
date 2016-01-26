@@ -13,6 +13,7 @@ class Oystercard
   def initialize
     @balance = 0
     @journey_log = JourneyLog.new
+    @journey = Journey.new
   end
 
   def top_up(amount)
@@ -22,7 +23,6 @@ class Oystercard
 
   def touch_in(entry_station)
     raise "Balance under #{DEFAULT_MIN}" if @balance < DEFAULT_MIN
-    @journey = Journey.new
     @journey_log.start_journey(entry_station)
   end
 
