@@ -68,8 +68,8 @@ subject(:oystercard) {described_class.new}
 
   describe "#journeys" do
 
-    let(:entry_station) {double(:entry_station)}
-    let(:exit_station) {double(:exit_station)}
+    let(:entry_station) {double(:entry_station, :name => 'name', :zone => 1)}
+    let(:exit_station) {double(:exit_station, :name => 'name', :zone => 1)}
 
     it "can store a full journey in the journey history" do
       oystercard.top_up(10)
