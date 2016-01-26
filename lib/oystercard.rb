@@ -7,7 +7,6 @@ class Oystercard
 
   def initialize
     @balance = 0
-    #@in_use = false
     @entry_station = nil
   end
 
@@ -19,13 +18,11 @@ class Oystercard
   def touch_in(entry_station)
     raise "Balance under #{DEFAULT_MIN}" if @balance < DEFAULT_MIN
     @entry_station = entry_station
-    #@in_use = true
   end
 
   def touch_out
-    deduct(1)
+    deduct(DEFAULT_MIN)
     @entry_station = nil
-    #@in_use = false
   end
 
   def in_journey?

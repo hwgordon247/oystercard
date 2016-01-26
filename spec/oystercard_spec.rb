@@ -4,14 +4,9 @@ describe Oystercard do
 subject(:oystercard) {described_class.new}
 
   describe "#initialize" do
-    it "Shows a balance of £0 on new card" do
+    it "Shows a balance of 0 on new card" do
       expect(oystercard.balance).to eq 0
     end
-
-    # it "sets 'in_use' to false on initialization" do
-    #   expect(oystercard.in_use).to eq false
-    # end
-
   end
 
   describe "#top_up" do
@@ -23,10 +18,11 @@ subject(:oystercard) {described_class.new}
 
   describe "#top_up maximum" do
 
-    it "Prevents balance to be topped up beyond £90" do
+    it "Prevents balance being topped up beyond default max" do
       oystercard.instance_variable_set("@balance", 1)
       expect{oystercard.top_up(Oystercard::DEFAULT_MAX)}.to raise_error("Unable to top up balance to above #{Oystercard::DEFAULT_MAX} amount")
     end
+
   end
 
   # describe "#deduct" do
@@ -36,6 +32,7 @@ subject(:oystercard) {described_class.new}
   # end
 
   describe "#touch_in" do
+
     let(:entry_station) {double(:entry_station)}
 
     # it "Card shows as in_use after touch_in" do
@@ -56,6 +53,7 @@ subject(:oystercard) {described_class.new}
   end
 
   describe "#touch_out" do
+
     let(:entry_station) {double(:entry_station)}
 
 
@@ -71,6 +69,7 @@ subject(:oystercard) {described_class.new}
   end
 
   describe "#in_journey" do
+    
     let(:entry_station) {double(:entry_station)}
 
     it "Card shows as in_journey after touch_in" do
