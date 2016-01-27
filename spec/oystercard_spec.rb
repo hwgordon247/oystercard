@@ -79,12 +79,6 @@ subject(:oystercard) {described_class.new}
       expect(oystercard.current_journey).not_to eq nil
     end
 
-    #it "records the station of departure at touch_in" do
-    #   oystercard.instance_variable_set("@balance", 1)
-    #   oystercard.touch_in(station)
-    #   expect(oystercard.entry_station).to eq station
-    # end
-
   end
 
   describe "#touch_out" do
@@ -97,19 +91,6 @@ subject(:oystercard) {described_class.new}
       expect {oystercard.touch_out(station)}.to change{oystercard.balance}.by(-1)
     end
 
-
-
   end
 
-  #describe "#in_journey" do
-  #  let(:station) {double(:station)}
-
-    # it "shows as in_journey after touch_in" do
-    #   oystercard.top_up(1)
-    #   oystercard.touch_in(station)
-    #   expect(oystercard).to be_in_journey
-    # end
-
-  #end
-
-end
+ end
