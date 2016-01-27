@@ -11,7 +11,7 @@ class Journey
 
   def start_journey(entry_station)
     @entry_station = entry_station
-    @journey = {:in => nil, :out => nil}
+    # @journey = {:in => nil, :out => nil}
     @journey[:in]=@entry_station
   end
 
