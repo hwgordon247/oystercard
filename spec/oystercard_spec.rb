@@ -48,6 +48,8 @@ describe Oystercard do
     let(:exit_station) {double(:exit_station)}
 
     it "Cost for journey is deducted on touch_out" do
+      allow(entry_station).to receive(:zone).and_return 1
+      allow(exit_station).to receive(:zone).and_return 1
       oystercard.instance_variable_set("@balance", 10)
       oystercard.touch_in(entry_station)
       expect {oystercard.touch_out(exit_station)}.to change{oystercard.balance}.by(-1)

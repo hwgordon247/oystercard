@@ -9,7 +9,8 @@ class Oystercard
   DEFAULT_MAX = 90
   DEFAULT_MIN = 1
 
-  def initialize
+  def initialize(journey = Journey.new)
+    @journey = journey
     @balance = 0
     @journeys = []
   end
@@ -19,16 +20,20 @@ class Oystercard
     @balance += amount
   end
 
-  def touch_in(entry_station, journey = Journey.new)
+  def touch_in(entry_station)
     raise "Balance under #{DEFAULT_MIN}" if @balance < DEFAULT_MIN
-    @journey = journey
+    @journey.reset
     @journey.start_journey(entry_station)
     @journeys << @journey.journey
   end
 
   def touch_out(exit_station)
-    deduct(DEFAULT_MIN)
+    if @journey.journey[:out] != nil
+      @journey.reset
+      @journeys << @journey.journey
+    end
     @journey.end_journey(exit_station)
+    fare
   end
 
   def fare
@@ -41,5 +46,4 @@ class Oystercard
   def deduct(amount)
     @balance -= amount
   end
-
 end
