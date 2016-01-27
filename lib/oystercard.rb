@@ -31,6 +31,11 @@ class Oystercard
     @journey.end_journey(exit_station)
   end
 
+  def fare
+    deduct(@journey.fare)
+    "#{@journey.fare} has been deducted"
+  end
+
   private
 
   def deduct(amount)

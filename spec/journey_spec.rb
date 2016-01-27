@@ -2,49 +2,38 @@ require 'journey'
 
 describe Journey do
 
-
   let(:entry_station) {double(:entry_station)}
   let(:exit_station) {double(:exit_station)}
 
+  before(:example) do
+    allow(entry_station).to receive(:zone).and_return(2)
+    allow(exit_station).to receive(:zone).and_return(5)
+    subject.start_journey(entry_station)
+  end
 
-  describe '#start_journey' do
-
+   describe '#start_journey' do
       it 'stores a journey when you #start_journey' do
-        subject.start_journey(entry_station)
         expect(subject.journey).to include(:in => entry_station, :out => nil)
       end
+   end
 
-  end
-
-  describe '#end_journey' do
-
+   describe '#end_journey' do
       it 'stores a journey when you #end_journey' do
-        subject.start_journey(entry_station)
-        subject.end_journey(exit_station)
+         subject.end_journey(exit_station)
         expect(subject.journey).to include(:in => entry_station, :out => exit_station)
       end
+   end
 
-  end
-
-
-  describe '#fare' do
-
-    it 'returns the minimum fare when journey complete' do
-      subject.start_journey(entry_station)
-      subject.end_journey(exit_station)
-      expect(subject.fare).to eq Journey::MINIMUM_FARE
-    end
-
+   describe '#fare' do
     it 'returns penalty fare when touch_in fails' do
-      subject.end_journey(entry_station)
       expect(subject.fare).to eq Journey::PENALTY_FARE
     end
-
     it 'returns penalty fare when touch_out fails' do
-      subject.start_journey(entry_station)
       expect(subject.fare).to eq Journey::PENALTY_FARE
     end
-
+    it 'returns a fare for different zone journeys' do
+      subject.end_journey(exit_station)
+      expect(subject.fare).to eq 3
+    end
   end
-
 end
