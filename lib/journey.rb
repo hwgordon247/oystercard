@@ -1,4 +1,3 @@
-
 class Journey
 
   MINIMUM_FARE = 1
@@ -33,5 +32,4 @@ class Journey
   def reset
     @journey = {:in => nil, :out => nil}
   end
-
 end
