@@ -24,28 +24,37 @@ class Oystercard
 
   def touch_in(entry_station)
     raise "Balance under #{DEFAULT_MIN}" if @balance < DEFAULT_MIN
-    @journey.reset
-    @journey.start_journey(entry_station)
+    if @journey.journey[:in] != nil #illegal travel
+      deduct(@journey.fare)
+      @journey_log.record_journey
+      @journey.reset
+      #@journeys << @journey.journey
+    end
+    @journey.start_journey(entry_station)  #lawful travel
     # @journeys << @journey.journey
   end
 
   def touch_out(exit_station)
-    if @journey.journey[:out] != nil
+    # if @journey.journey[:out] != nil #illegal travel
+      # deduct(@journey.fare)
+    #   #@journeys << @journey.journey
+    # else #lawful travel
+      @journey.end_journey(exit_station)
+      deduct(@journey.fare)
+    # end
+      @journey_log.record_journey
       @journey.reset
-      #@journeys << @journey.journey
-    end
-    @journey.end_journey(exit_station)
-    fare
+    # fare
   end
 
   def history
     @journey_log.journeys
   end
-
-  def fare
-    deduct(@journey.fare)
-    "#{@journey.fare} has been deducted"
-  end
+  #
+  # def fare
+  #   deduct(@journey.fare)
+  #   "#{@journey.fare} has been deducted"
+  # end
 
   private
 
