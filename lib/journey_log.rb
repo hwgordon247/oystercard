@@ -13,6 +13,7 @@ class JourneyLog
 
   def record_journey
     @journeys << @journey.journey
+    @journey.reset
   end
 
 end

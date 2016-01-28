@@ -8,7 +8,10 @@ describe JourneyLog do
   let(:journey_hash) {{:in => station1, :out => station2}}
   subject(:journeylog) {described_class.new journey}
 
-  before {allow(journey).to receive(:journey).and_return journey_hash}
+  before do
+    allow(journey).to receive(:journey).and_return journey_hash
+    allow(journey).to receive(:reset)
+  end
 
   describe '#journeys' do
     it{is_expected.to respond_to(:journeys)}
@@ -24,10 +27,5 @@ describe JourneyLog do
     it 'pushes the current journey into the log file' do
       expect{subject.record_journey}.to change{subject.journeys}.by [journey_hash]
     end
-
   end
-
-
-
-
 end
