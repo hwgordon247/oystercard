@@ -32,7 +32,7 @@ class Oystercard
   def touch_out(exit_station)
     if @journey.journey[:out] != nil
       @journey.reset
-      @journeys << @journey.journey
+      #@journeys << @journey.journey
     end
     @journey.end_journey(exit_station)
     fare
