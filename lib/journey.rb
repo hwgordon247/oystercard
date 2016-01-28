@@ -3,8 +3,6 @@ class Journey
   MINIMUM_FARE = 1
   PENALTY_FARE = 6
 
-  #attr_reader :journey
-
   def initialize
     @journey = {:in => nil, :out => nil}
   end
@@ -24,13 +22,9 @@ class Journey
   end
 
   def fare
-    # total = []
     return PENALTY_FARE if @journey[:out].nil? || @journey[:in].nil?
-    # total << @entry_station.zone
-    # total << @exit_station.zone
-    total = [@entry_station.zone, @exit_station.zone]
-    total.sort!
-    total[0] != total[1] ? ((total[1]-total[0])+1) : MINIMUM_FARE
+    total = [@entry_station.zone, @exit_station.zone].sort
+    total[1] - total[0] + MINIMUM_FARE
   end
 
   def reset

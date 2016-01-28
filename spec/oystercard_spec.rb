@@ -27,13 +27,13 @@ describe Oystercard do
   describe "#top_up maximum" do
     it "Prevents balance being topped up beyond default max" do
       oystercard.instance_variable_set("@balance", 1)
-      expect{oystercard.top_up(Oystercard::DEFAULT_MAX)}.to raise_error("Unable to top up balance to above #{Oystercard::DEFAULT_MAX} amount")
+      expect{oystercard.top_up(Oystercard::DEFAULT_MAX)}.to raise_error("Unable to complete action: high balance")
     end
   end
 
   describe "#touch_in" do
     it "Check min balance on touch_in" do
-      expect{oystercard.touch_in(entry_station)}.to raise_error("Balance under #{Oystercard::DEFAULT_MIN}")
+      expect{oystercard.touch_in(entry_station)}.to raise_error("Unable to complete action: low balance")
     end
   end
 
