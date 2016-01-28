@@ -1,5 +1,6 @@
 require_relative 'station.rb'
 require_relative 'journey.rb'
+require_relative 'journey_log.rb'
 
 
 class Oystercard
