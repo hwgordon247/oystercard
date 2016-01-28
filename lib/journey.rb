@@ -26,7 +26,7 @@ class Journey
     total << @entry_station.zone
     total << @exit_station.zone
     total.sort!
-    total[0] != total[1] ? total[1]-total[0] : MINIMUM_FARE
+    total[0] != total[1] ? ((total[1]-total[0])+1) : MINIMUM_FARE
   end
 
   def reset

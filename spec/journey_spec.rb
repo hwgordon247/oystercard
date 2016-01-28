@@ -33,7 +33,7 @@ describe Journey do
     end
     it 'returns a fare for different zone journeys' do
       subject.end_journey(exit_station)
-      expect(subject.fare).to eq 3
+      expect(subject.fare).to eq 4
     end
   end
 end
