@@ -1,11 +1,21 @@
 require_relative 'station.rb'
 require_relative 'journey.rb'
 require_relative 'journey_log.rb'
-
+require 'forwardable'
 
 class Oystercard
 
+  extend Forwardable
+
+  def_delegator :@journey_log, :journeys, :history
+  def_delegator :@journey_log, :record_journey, :record
+  def_delegator :@journey, :start_journey, :begin_j
+  def_delegator :@journey, :end_journey, :end_j
+  def_delegator :@journey, :fare, :fare
+  def_delegator :@journey, :journey, :j_hash
+
   attr_reader :balance
+
   @@error = "Unable to complete action: "
 
   DEFAULT_MAX = 90
@@ -24,21 +34,17 @@ class Oystercard
 
   def touch_in(entry_station)
     raise @@error + "low balance" if low_balance?
-    if @journey.journey[:in] != nil
-      deduct(@journey.fare)
-      @journey_log.record_journey
+    if j_hash[:in] != nil
+      deduct(fare)
+      record
     end
-    @journey.start_journey(entry_station)
+    begin_j(entry_station)
   end
 
   def touch_out(exit_station)
-      @journey.end_journey(exit_station)
-      deduct(@journey.fare)
-      @journey_log.record_journey
-  end
-
-  def history
-    @journey_log.journeys.clone
+    end_j(exit_station)
+    deduct(fare)
+    record
   end
 
   private
