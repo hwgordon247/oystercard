@@ -1,8 +1,9 @@
 require './lib/station.rb'
 require './lib/journey.rb'
+require 'forwardable'
 
 class Oystercard
-
+  extend Forwardable
   attr_reader :balance, :entry_station, :journey_hist, :journey_complete, :current_journey, :journey_klass
 
   MAX_LIMIT = 90
@@ -39,9 +40,10 @@ class Oystercard
     @journey_hist.push(@current_journey.journey_details)
   end
 
-  def to_pay
-    @current_journey.journey_cost
-  end
+  # def to_pay
+  #   @current_journey.journey_cost
+  # end
+  def_delegator :@current_journey, :journey_cost, :to_pay
 
   def no_touch_out(station)
     @current_journey.start_journey(station)
